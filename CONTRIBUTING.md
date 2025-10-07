@@ -6,9 +6,9 @@ First off, thank you for considering contributing! Your help is greatly apprecia
 
 ### Reporting Bugs
 
-*   Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/mamedul/wp-hook/issues "null").
+*   Ensure the bug was not already reported by searching on GitHub under [Issues](https://github.com/mamedul/day-finder/issues "null").
     
-*   If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/mamedul/wp-hook/issues/new "null"). Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
+*   If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/mamedul/day-finder/issues/new "null"). Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
     
 
 ### Suggesting Enhancements
