@@ -2,6 +2,7 @@
   "name": "Day Finder - Zeller’s Congruence Formula",
   "short_name": "DayFinder",
   "start_url": "./index.html",
+  "version": "1.0.0",
   "display": "standalone",
   "background_color": "#f5f3ff",
   "theme_color": "#4f46e5",
