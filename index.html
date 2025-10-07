@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title data-locale="text">Zeller's Congruence Calculator | Find Day of the Week for Any Date</title>
+  <meta name="description"
+    content="Accurately find the day of the week for any historical or future date with our Zeller's Congruence calculator. Perfect for historians, genealogists, and planners. Handles the 1582 Gregorian calendar reform." />
+  <meta name="keywords"
+    content="zeller's congruence, day of the week calculator, find day for date, historical date calculator, what day was i born, gregorian calendar, day finder, pwa calculator" />
+  <meta name="author" content="Mamedul Islam" />
+  <link rel="canonical" href="https://mamedul.github.io/day-finder" /> <meta name="theme-color" content="#4f46e5" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mamedul.github.io/day-finder" /> <meta property="og:title" content="Zeller's Congruence Calculator | Find Day of the Week" />
+  <meta property="og:description"
+    content="A powerful PWA to find the day of the week for any date using Zeller's Congruence formula, with historical accuracy." />
+  <meta property="og:image" content="https://googleusercontent.com/image_generation_content/0" /> <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://mamedul.github.io/day-finder" /> <meta name="twitter:title" content="Zeller's Congruence Calculator | Find Day of the Week" />
+  <meta name="twitter:description"
+    content="A powerful PWA to find the day of the week for any date using Zeller's Congruence formula, with historical accuracy." />
+  <meta name="twitter:image" content="https://googleusercontent.com/image_generation_content/0" /> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Zeller's Congruence Day Finder",
+        "description": "An accurate PWA calculator that uses Zeller's Congruence to find the day of the week for any date in the Gregorian calendar, including historical adjustments.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (Web App)",
+        "offers": {
+          "@type": "Offer",
+          "price": "0"
+        },
+        "url": "https://mamedul.github.io/day-finder"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Zeller’s Congruence?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Zeller's Congruence is a mathematical algorithm developed by Christian Zeller to calculate the day of the week for any given date in the Gregorian or Julian calendars."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why are January and February treated as months 13 and 14 of the previous year?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "This adjustment simplifies the leap year calculation. By treating January and February as the end of the previous year, the leap day (February 29th) is always the last day of the calculation year, which makes the formula consistent."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How accurate is this calculator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "This calculator is highly accurate for any date since the adoption of the Gregorian calendar (October 15, 1582). It correctly handles the 10-day skip implemented during the calendar reform."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::after, *::before{
+      box-sizing: border-box;
+    }
+    :root {
+      --primary: #4f46e5;
+      --secondary: #818cf8;
+      --bg: linear-gradient(135deg, #eef2ff, #f5f3ff);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 30px 20px;
+      color: #1e1e2f;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header .languages-wrapper {
+      display: block;
+      text-align: right;
+    }
+    header .languages-wrapper .languages{
+      padding: 2px 4px;
+      margin: 0;
+      outline: 0;
+      border: 1px solid #1e1e2f;
+      color: #1e1e2f;
+      box-shadow: none;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 10px;
+    }
+    header p {
+      color: #444;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 30px 25px;
+      text-align: center;
+      width: 100%;
+      max-width: 480px;
+      transition: transform 0.3s ease;
+      margin-bottom: 40px;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    input[type="date"] {
+      display: block;
+      width: 100%;
+      width: -webkit-fill-available;
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      outline: none;
+    }
+    button {
+      display: block;
+      width: 100%;
+      width: -webkit-fill-available;
+      padding: 12px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+    }
+    #result {
+      margin-top: 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+    #result.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .content-section {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+    .content-section h2 {
+      color: var(--primary);
+      font-size: 1.6rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .content-section h4 {
+      margin: 0 0 0.5rem 0;
+    }
+    .content-section p {
+      margin-top: 0;
+      margin-bottom: 2rem;
+    }
+    
+    code {
+      background: #eef2ff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      color: #312e81;
+    }
+    
+    .math-display{
+      display: block;
+      text-align: center !important;
+      margin: 1rem 0 0 0 !important;
+      max-width: 100%;
+      max-width: -webkit-fill-available;
+      overflow-x: auto;
+    }
+    .math-or{
+      text-align: center !important;
+      margin: 1.2rem 0 !important;
+    }
+    .math-equation{
+      display: block;
+      text-align: center !important;
+      margin: 0 0 1rem 0 !important;
+      max-width: 100%;
+      max-width: -webkit-fill-available;
+      overflow-x: auto;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+    .resp-sepa{
+      display: inline;
+    }
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.8rem; }
+      .card, .content-section { padding: 25px 20px; }
+      .resp-sepa{ display: block;
+      visibility: hidden;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="languages-wrapper">
+      <select id="language-select" class="languages">
+        <option value="" data-locale="text" selected disabled>Select Language</option>
+        <option value="en" data-locale="text">English</option>
+        <option value="zh" data-locale="text">Mandarin Chinese</option>
+        <option value="hi" data-locale="text">Hindi</option>
+        <option value="es" data-locale="text">Spanish</option>
+        <option value="fr" data-locale="text">French</option>
+        <option value="ar" data-locale="text">Arabic</option>
+        <option value="bn" data-locale="text">Bengali (Bangla)</option>
+        <option value="pt" data-locale="text">Portuguese</option>
+        <option value="ru" data-locale="text">Russian</option>
+        <option value="ur" data-locale="text">Urdu</option>
+      </select>
+    </div>
+    <h1 data-locale="text">📅 Zeller's Congruence Day of the Week Calculator</h1>
+    <p data-locale="text">Discover the exact day of the week for any date. Our tool uses Zeller's Congruence for precise calculations, including the complex Gregorian calendar transition of 1582.</p>
+  </header>
+
+  <div class="card">
+    <div class="input-group">
+      <input type="date" id="dateInput" aria-label="Select a date to find the day of the week" />
+      <button onclick="findDay()" aria-label="Calculate day of the week" data-locale="text">Find Day</button>
+    </div>
+    <div id="result" aria-live="polite"></div>
+  </div>
+
+  <section class="content-section" id="formula-info">
+    <h2 data-locale="text">🧮 Zeller’s Congruence Explained</h2>
+    <p data-locale="html"><b>Zeller’s Congruence</b> is a brilliant mathematical formula used to determine the day of the week for any date. The version used here is optimized for the Gregorian calendar.</p>
+    
+    <div class="math-display">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <semantics>
+          <mrow>
+            <mi>h</mi>
+            <mo>=</mo>
+            <mrow>
+              <mo fence="true">(</mo>
+              <mi>q</mi>
+              <mo>+</mo>
+              <mrow>
+                <mo fence="true">⌊</mo>
+                <mfrac>
+                  <mrow>
+                    <mn>13</mn>
+                    <mo stretchy="false">(</mo>
+                    <mi>m</mi>
+                    <mo>+</mo>
+                    <mn>1</mn>
+                    <mo stretchy="false">)</mo>
+                  </mrow>
+                  <mn>5</mn>
+                </mfrac>
+                <mo fence="true">⌋</mo>
+              </mrow>
+              <mo>+</mo>
+              <mi>K</mi>
+              <mo>+</mo>
+              <mrow>
+                <mo fence="true">⌊</mo>
+                <mfrac>
+                  <mi>K</mi>
+                  <mn>4</mn>
+                </mfrac>
+                <mo fence="true">⌋</mo>
+              </mrow>
+              <mo>+</mo>
+              <mrow>
+                <mo fence="true">⌊</mo>
+                <mfrac>
+                  <mi>J</mi>
+                  <mn>4</mn>
+                </mfrac>
+                <mo fence="true">⌋</mo>
+              </mrow>
+              <mo>+</mo>
+              <mn>5</mn>
+              <mi>J</mi>
+              <mo fence="true">)</mo>
+            </mrow>
+            <mtext> </mtext>
+            <mo lspace="0.22em" rspace="0.22em">
+              <mrow>
+                <mi mathvariant="normal">mod</mi>
+              </mrow>
+            </mo>
+            <mtext> </mtext>
+            <mn>7</mn>
+          </mrow>
+          <annotation encoding="application/x-tex">h = \left( q + \left\lfloor \frac{13(m + 1)}{5} \right\rfloor + K
+            + \left\lfloor \frac{K}{4} \right\rfloor + \left\lfloor \frac{J}{4} \right\rfloor + 5J \right) \bmod 7
+          </annotation>
+        </semantics>
+      </math>
+    </div>
+    
+    <p class="math-or" data-locale="text">Or</p>
+
+    <pre class="math-equation"><code>h = (q + ⌊13(m+1)/5⌋ + K + ⌊K/4⌋ + ⌊J/4⌋ + 5J) mod 7</code></pre>
+    
+    <ul>
+      <li><code>h</code><span data-locale="html"> = The day of the week (0 = Saturday, 1 = Sunday, ..., 6 = Friday)</span></li>
+      <li><code>q</code><span data-locale="html"> = The day of the month</span></li>
+      <li><code>m</code><span data-locale="html"> = The month (3 = March, ..., 12 = December). For Jan &amp; Feb, m is 13 &amp; 14 of the <i>previous</i> year.</span></li>
+      <li><code>K</code><span data-locale="html"> = The year of the century (<code>year % 100</code>)</span></li>
+      <li><code>J</code><span data-locale="html"> = The zero-based century (<code>Math.floor(year / 100)</code>)</span></li>
+    </ul>
+
+    <h3 data-locale="text">Historical Adjustment Note:</h3>
+    <p data-locale="text">The Gregorian calendar was adopted in October 1582, which involved skipping 10 days (from October 5th to 14th) to realign the calendar with the seasons. This app correctly identifies these non-existent dates.</p>
+  </section>
+
+  <section class="content-section" id="faq">
+    <h2 data-locale="text">🤔 Frequently Asked Questions (FAQ)</h2>
+    <h4 data-locale="text">What is Zeller’s Congruence?</h4>
+    <p data-locale="text">Zeller's Congruence is a mathematical algorithm developed by Christian Zeller to calculate the day of the week for any given date in the Gregorian or Julian calendars.</p>
+    
+    <h4 data-locale="text">Why are January and February treated as months 13 and 14 of the previous year?</h4>
+    <p data-locale="text">This adjustment simplifies the leap year calculation. By treating January and February as the end of the previous year, the leap day (February 29th) is always the last day of the calculation year, which makes the formula consistent.</p>
+
+    <h4 data-locale="text">Is this calculator accurate?</h4>
+    <p data-locale="text">Yes, this calculator is highly accurate for any date since the adoption of the Gregorian calendar (October 15, 1582). It correctly handles the 10-day skip implemented during the calendar reform.</p>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="copyright-year">2025</span> <span data-locale="text">Day Finder</span> <span class="resp-sepa">|</span> <span data-locale="text">Developed by Mamedul Islam</span></p>
+  </footer>
+
+  <script>
+    // Polyfill fetch() using XMLHttpRequest
+    if (!('fetch' in window)) {
+      console.log('⚠️ fetch() not supported. Applying XMLHttpRequest polyfill...');
+
+      window.fetch = function (url, options) {
+        options = options || {};
+
+        return new Promise(function (resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.open(options.method || 'GET', url, true);
+
+          // Set headers if provided
+          if (options.headers) {
+            for (var key in options.headers) {
+              if (options.headers.hasOwnProperty(key)) {
+                xhr.setRequestHeader(key, options.headers[key]);
+              }
+            }
+          }
+
+          xhr.onload = function () {
+            var body = 'response' in xhr ? xhr.response : xhr.responseText;
+            var response = {
+              ok: (xhr.status >= 200 && xhr.status < 300),
+              status: xhr.status,
+              statusText: xhr.statusText,
+              url: xhr.responseURL,
+              text: function () { return Promise.resolve(body); },
+              json: function () { return Promise.resolve(JSON.parse(body)); }
+            };
+            resolve(response);
+          };
+
+          xhr.onerror = function () {
+            reject(new TypeError('Network request failed'));
+          };
+
+          xhr.ontimeout = function () {
+            reject(new TypeError('Network request timed out'));
+          };
+
+          xhr.onabort = function () {
+            reject(new DOMException('Aborted', 'AbortError'));
+          };
+
+          xhr.send(options.body || null);
+        });
+      };
+    }
+  </script>
+  <script>
+    async function findDay() {
+      const dateVal = document.getElementById("dateInput").value;
+      const resultEl = document.getElementById("result");
+
+      if (!dateVal) {
+        resultEl.textContent = await getLocale("⚠️ Please select a valid date.");
+        resultEl.classList.add("show");
+        return;
+      }
+
+      const date = new Date(dateVal);
+      const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+      const utcDate = new Date(date.getTime() + userTimezoneOffset);
+      const mUtcDate = new Date();
+
+      const Y = utcDate.getFullYear();
+      const M = utcDate.getMonth() + 1;
+      const D = utcDate.getDate();
+
+      // Gregorian adjustment (skipped 10 days in Oct 1582)
+      if (Y === 1582 && M === 10 && D >= 5 && D <= 14) {
+        resultEl.innerHTML = await getLocale("⚠️ These dates (Oct 5-14, 1582) do not exist due to the Gregorian calendar reform.");
+        resultEl.classList.add("show");
+        return;
+      }
+      // Rule is only applicable post-reform
+      if (Y < 1582 || (Y === 1582 && M < 10) || (Y === 1582 && M === 10 && D < 5)) {
+        resultEl.innerHTML = await getLocale("⚠️ This calculator is accurate for dates on or after October 15, 1582.");
+        resultEl.classList.add("show");
+        return;
+      }
+
+
+      // Zeller’s formula implementation
+      let m = M, year = Y;
+      if (m === 1 || m === 2) {
+        m += 12;
+        year -= 1;
+      }
+
+      const q = D;
+      const K = year % 100;
+      const J = Math.floor(year / 100);
+
+      const h = (q + Math.floor((13 * (m + 1)) / 5) + K + Math.floor(K / 4) + Math.floor(J / 4) + 5 * J) % 7;
+      const days = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+      const emoji = ["☕", "☀️", "💼", "📚", "🌿", "🌻", "🎉"];
+
+      var r = `%1$s <b>%2$s</b> was a <span style="color:var(--primary)">%3$s</span>`;
+      if( mUtcDate.getTime() == utcDate.getTime() ){
+        r = `%1$s <b>%2$s</b> is a <span style="color:var(--primary)">%3$s</span>`;
+      }else if( mUtcDate.getTime() > utcDate.getTime() ){
+        r = `%1$s <b>%2$s</b> was a <span style="color:var(--primary)">%3$s</span>`;
+      }else if( mUtcDate.getTime() < utcDate.getTime() ){
+        r = `%1$s <b>%2$s</b> will be a <span style="color:var(--primary)">%3$s</span>`;
+      }
+      r = await getLocale(r);
+      r = r.replaceAll('%1$s', emoji[h]).replaceAll('%2$s', await getLocaleNumber(dateVal)).replaceAll('%3$s', await getLocale(days[h]));
+      resultEl.innerHTML = r;
+      resultEl.classList.add("show");
+    }
+
+    async function getLocale(text){
+      var lang = document.documentElement.getAttribute('lang') || 'en';
+      if(lang=='en') return text;
+      if(typeof locales[lang] == "undefined"){
+        try{
+          var f = await fetch('./locales/'+lang+'.json');
+          var d = await f.json();
+          locales[lang] = d;
+          if( typeof window.localStorage !="undefined" ){
+            window.localStorage.setItem('locales', JSON.stringify(locales));
+          }
+        }catch{}
+      }
+      if(typeof locales[lang] != "undefined" && typeof locales[lang][text] != "undefined"){
+        return locales[lang][text];
+      }
+      return text;
+    }
+
+    async function getLocaleNumber(text){
+      return text
+      .replaceAll(1,await getLocale(1))
+      .replaceAll(2,await getLocale(2))
+      .replaceAll(3,await getLocale(3))
+      .replaceAll(4,await getLocale(4))
+      .replaceAll(5,await getLocale(5))
+      .replaceAll(6,await getLocale(6))
+      .replaceAll(7,await getLocale(7))
+      .replaceAll(8,await getLocale(8))
+      .replaceAll(9,await getLocale(9))
+      .replaceAll(0,await getLocale(0));
+    }
+
+    async function setLocale(lang){
+      document.documentElement.setAttribute('lang', lang);
+      if( typeof window.localStorage != "undefined" ){
+        window.localStorage.setItem('locale', lang);
+      }
+      var q = document.querySelectorAll('[data-locale]');
+      if(q && q.length){
+        for(var i=0; i < q.length; i++) {
+          var t = ((q[i].dataset || {locale: "html"}).locale).toLowerCase();
+          var v = q[i].dataset.value || null;
+          if(t == 'html' || t == 'innerhtml'){
+            if(v === null || v==='') q[i].dataset.value = q[i].innerHTML;
+            q[i].innerHTML = await getLocale(v || q[i].innerHTML);
+          }else if(t == 'html' || t == 'outerhtml'){
+            if(v === null || v==='') q[i].dataset.value = q[i].outerHTML;
+            q[i].outerHTML = await getLocale(v || q[i].outerHTML);
+          }else if(t == 'text' || t == 'textcontent' || t == 'innertext'){
+            if(v === null || v==='') q[i].dataset.value = q[i].textContent;
+            q[i].textContent = await getLocale(v || q[i].textContent);
+          }else if(t == 'outerText' || t == 'alltext'){
+            if(v === null || v==='') q[i].dataset.value = q[i].outerText;
+            q[i].outerText = await getLocale(v || q[i].outerText);
+          }
+        }
+      }
+      if(document.getElementById('result').classList.contains('show')) findDay();
+    }
+
+    // locales
+    var locales = {}, locale = document.documentElement.getAttribute('lang') || 'en';
+    if( typeof window.localStorage != "undefined" ){
+      try{ locales = JSON.parse(window.localStorage.getItem('locales')); }catch{}
+      locale = window.localStorage.getItem('locale') || locale;
+    }
+    locales = typeof locales === 'object' && locales !== null ? locales : {};
+    var language_select = document.getElementById('language-select');
+    language_select.onchange = function (e) { setLocale(this.value); };
+    language_select.value = locale;
+    if(locale != 'en'){
+      language_select.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // copyright
+    var copyright_year = document.getElementById('copyright-year');
+    const y = (new Date()).getFullYear();
+    copyright_year.textContent = y>2025 ? '-' + y : y;
+
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js')
+          .then(function(){ console.log('✅ PWA Service Worker registered'); })
+          .catch(function(err){ console.error('SW registration failed:', err); })
+      });
+    }
+  </script>
+
+</body>
+</html>

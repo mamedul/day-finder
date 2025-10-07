@@ -1,0 +1,59 @@
+{
+  "Zeller's Congruence Calculator | Find Day of the Week for Any Date": "حاسبة تطابق زيلر | البحث عن يوم الأسبوع لأي تاريخ",
+  "📅 Zeller's Congruence Day of the Week Calculator": "📅 حاسبة يوم الأسبوع بتطابق زيلر",
+  "Discover the exact day of the week for any date. Our tool uses Zeller's Congruence for precise calculations, including the complex Gregorian calendar transition of 1582.": "اكتشف اليوم الدقيق من الأسبوع لأي تاريخ. تستخدم أداتنا تطابق زيلر لإجراء حسابات دقيقة، بما في ذلك الانتقال المعقد للتقويم الغريغوري لعام 1582.",
+  "Find Day": "ابحث عن اليوم",
+  "🧮 Zeller’s Congruence Explained": "🧮 شرح تطابق زيلر",
+  "<b>Zeller’s Congruence</b> is a brilliant mathematical formula used to determine the day of the week for any date. The version used here is optimized for the Gregorian calendar.": "<b>تطابق زيلر</b> هو صيغة رياضية رائعة تستخدم لتحديد يوم الأسبوع لأي تاريخ. النسخة المستخدمة هنا محسّنة للتقويم الغريغوري.",
+  "Or": "أو",
+  " = The day of the week (0 = Saturday, 1 = Sunday, ..., 6 = Friday)": " = يوم الأسبوع (0 = السبت، 1 = الأحد، ...، 6 = الجمعة)",
+  " = The day of the month": " = يوم الشهر",
+  " = The month (3 = March, ..., 12 = December). For Jan &amp; Feb, m is 13 &amp; 14 of the <i>previous</i> year.": " = الشهر (3 = مارس، ...، 12 = ديسمبر). بالنسبة ليناير وفبراير، m هو 13 و 14 من العام <i>السابق</i>.",
+  " = The year of the century (<code>year % 100</code>)": " = سنة القرن (<code>السنة % 100</code>)",
+  " = The zero-based century (<code>Math.floor(year / 100)</code>)": " = القرن الصفري (<code>Math.floor(السنة / 100)</code>)",
+  "Historical Adjustment Note:": "ملاحظة التعديل التاريخي:",
+  "The Gregorian calendar was adopted in October 1582, which involved skipping 10 days (from October 5th to 14th) to realign the calendar with the seasons. This app correctly identifies these non-existent dates.": "تم اعتماد التقويم الغريغوري في أكتوبر 1582، والذي تضمن تخطي 10 أيام (من 5 إلى 14 أكتوبر) لإعادة تنظيم التقويم مع الفصول. يحدد هذا التطبيق بشكل صحيح هذه التواريخ غير الموجودة.",
+  "🤔 Frequently Asked Questions (FAQ)": "🤔 الأسئلة الشائعة (FAQ)",
+  "What is Zeller’s Congruence?": "ما هو تطابق زيلر؟",
+  "Zeller's Congruence is a mathematical algorithm developed by Christian Zeller to calculate the day of the week for any given date in the Gregorian or Julian calendars.": "تطابق زيلر هو خوارزمية رياضية طورها كريستيان زيلر لحساب يوم الأسبوع لأي تاريخ معين في التقويمين الغريغوري أو اليولياني.",
+  "Why are January and February treated as months 13 and 14 of the previous year?": "لماذا يتم التعامل مع يناير وفبراير كشهرين 13 و 14 من العام السابق؟",
+  "This adjustment simplifies the leap year calculation. By treating January and February as the end of the previous year, the leap day (February 29th) is always the last day of the calculation year, which makes the formula consistent.": "هذا التعديل يبسط حساب السنة الكبيسة. من خلال التعامل مع يناير وفبراير كنهاية العام السابق، يكون اليوم الكبيس (29 فبراير) دائمًا هو آخر يوم في سنة الحساب، مما يجعل الصيغة متسقة.",
+  "Is this calculator accurate?": "هل هذه الحاسبة دقيقة؟",
+  "Yes, this calculator is highly accurate for any date since the adoption of the Gregorian calendar (October 15, 1582). It correctly handles the 10-day skip implemented during the calendar reform.": "نعم، هذه الحاسبة دقيقة للغاية لأي تاريخ منذ اعتماد التقويم الغريغوري (15 أكتوبر 1582). إنها تتعامل بشكل صحيح مع تخطي 10 أيام الذي تم تنفيذه أثناء إصلاح التقويم.",
+  "Day Finder": "مكتشف اليوم",
+  "Developed by Mamedul Islam": "تم تطويره بواسطة ماميدول إسلام",
+  "⚠️ Please select a valid date.": "⚠️ يرجى تحديد تاريخ صالح.",
+  "⚠️ These dates (Oct 5-14, 1582) do not exist due to the Gregorian calendar reform.": "⚠️ هذه التواريخ (5-14 أكتوبر 1582) غير موجودة بسبب إصلاح التقويم الغريغوري.",
+  "⚠️ This calculator is accurate for dates on or after October 15, 1582.": "⚠️ هذه الحاسبة دقيقة للتواريخ في 15 أكتوبر 1582 أو بعده.",
+  "%1$s <b>%2$s</b> is a <span style=\"color:var(--primary)\">%3$s</span>": "%1$s <b>%2$s</b> هو <span style=\"color:var(--primary)\">%3$s</span>",
+  "%1$s <b>%2$s</b> was a <span style=\"color:var(--primary)\">%3$s</span>": "%1$s <b>%2$s</b> كان <span style=\"color:var(--primary)\">%3$s</span>",
+  "%1$s <b>%2$s</b> will be a <span style=\"color:var(--primary)\">%3$s</span>": "%1$s <b>%2$s</b> سيكون <span style=\"color:var(--primary)\">%3$s</span>",
+  "Saturday": "السبت",
+  "Sunday": "الأحد",
+  "Monday": "الاثنين",
+  "Tuesday": "الثلاثاء",
+  "Wednesday": "الأربعاء",
+  "Thursday": "الخميس",
+  "Friday": "الجمعة",
+  "0": "٠",
+  "1": "١",
+  "2": "٢",
+  "3": "٣",
+  "4": "٤",
+  "5": "٥",
+  "6": "٦",
+  "7": "٧",
+  "8": "٨",
+  "9": "٩",
+  "English": "الإنجليزية",
+  "Mandarin Chinese": "الماندرين الصينية",
+  "Hindi": "الهندية",
+  "Spanish": "الإسبانية",
+  "French": "الفرنسية",
+  "Arabic": "العربية",
+  "Bengali (Bangla)": "البنغالية",
+  "Portuguese": "البرتغالية",
+  "Russian": "الروسية",
+  "Urdu": "الأردية",
+  "Select Language": "اختر اللغة"
+}
